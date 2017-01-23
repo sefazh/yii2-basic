@@ -16,7 +16,7 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -36,16 +36,16 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['site/index']],
-            ['label' => 'About', 'url' => ['site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => '首页', 'url' => ['site/index']],
+            ['label' => '关于', 'url' => ['site/about']],
+            ['label' => '联系', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => '登录', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    '登出 (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
@@ -61,13 +61,13 @@ AppAsset::register($this);
 
 </div>
 
-<!--<footer class="footer">
+<footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?/*= Yii::$app->params['company'] */?> <?/*= date('Y') */?></p>
+        <p class="pull-left">&copy; <?= Yii::$app->params['company'] ?> <?= date('Y') ?></p>
 
-        <p class="pull-right"><?/*= Yii::powered() */?></p>
+        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
-</footer>-->
+</footer>
 
 <?php $this->endBody() ?>
 </body>
