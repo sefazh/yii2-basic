@@ -8,6 +8,7 @@ Yii2框架学习
 ##### 2017-01-23
     - 添加首页轮播图挂件 views/widgets/Carousel.php
     - 添加首页特性描述挂件 views/widgets/Featurette.php
+    - 添加.htaccess文件
     
 ##### 2017-01-22
     - 通过Yii2-basic创建项目
