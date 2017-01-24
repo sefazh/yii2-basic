@@ -3,13 +3,9 @@
 /* @var $this yii\web\View */
 /* @var $model app\models\Country */
 
-$this->title = 'Create Country';
-$this->params['breadcrumbs'][] = ['label' => 'Countries', 'url' => ['index']];
+$this->title = 'Full Calendar';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<link rel="stylesheet" href="/js/fullcalendar/bootstrap-fullcalendar.css">
-<link href="/css/style.css" rel="stylesheet">
-<link href="/css/style-responsive.css" rel="stylesheet">
 <div class="wrapper">
 
     <!-- page start-->
@@ -23,13 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
     <!-- page end-->
+<!--    <a href="/img/1-1.jpg" class="fancybox" title="Sample title"><img src="/img/1-1.jpg" /></a>-->
 
 </div>
 <!--body wrapper end-->
-<script src="/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-
-<script src="/js/fullcalendar/fullcalendar.min.js"></script>
-<script src="/js/external-dragging-calendar.js"></script>

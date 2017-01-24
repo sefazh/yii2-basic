@@ -6,7 +6,7 @@ Yii2框架学习
 ### Change Log
 
 ##### 2017-01-24
-    - 添加日历页面（fullcalendar.js）
+    - 添加日历页面（fullcalendar.js, fancybox.js）
     - 添加cli模式查询时间并处理的逻辑
     - 添加发送事件通知邮件功能
     

@@ -427,8 +427,7 @@ table.fc-border-separate {
 .fc-border-separate tbody tr.fc-first th {
 	border-top-width: 0;
 	}
-	
-	
+
 
 /* Month View, Basic Week View, Basic Day View
 ------------------------------------------------------------------------*/
@@ -615,4 +614,7 @@ table.fc-border-separate {
 	_overflow: hidden;
 	}
 	
-	
+.fc-border-separate tbody td.fc-sat,
+.fc-border-separate tbody td.fc-sun {
+	background-color: rgba(101, 206, 167, 0.1);
+}

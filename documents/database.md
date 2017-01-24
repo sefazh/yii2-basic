@@ -19,7 +19,7 @@ CREATE TABLE `admin` (
   `salt` char(32) DEFAULT NULL,
   `status` bit(1) DEFAULT NULL COMMENT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 ```
 
 
@@ -47,5 +47,5 @@ CREATE TABLE `event` (
   `content` varchar(255) CHARACTER SET utf8 DEFAULT '',
   `status` tinyint(4) DEFAULT '1' COMMENT '状态 -1 删除 0 无效 1 有效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 ```
