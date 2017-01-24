@@ -27,4 +27,9 @@ class HelloController extends Controller
     {
         echo $message . "\n";
     }
+
+    public function actionTest()
+    {
+        echo "this is in cli mode!" . PHP_EOL;
+    }
 }

@@ -33,25 +33,27 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $items = [
+        ['label' => '首页', 'url' => ['site/index']],
+        ['label' => '关于', 'url' => ['site/about']],
+        ['label' => '联系', 'url' => ['/site/contact']],
+    ];
+    if (Yii::$app->user->isGuest) {
+        $items[] = ['label' => '登录', 'url' => ['/site/login']];
+    } else {
+        $items[] = ['label' => '日历', 'url' => ['calendar/index']];
+        $items[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                '登出 (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => '首页', 'url' => ['site/index']],
-            ['label' => '关于', 'url' => ['site/about']],
-            ['label' => '联系', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => '登录', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    '登出 (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>

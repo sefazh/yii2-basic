@@ -45,10 +45,42 @@ $this->params['columns'] = [
         echo \yii\widgets\Carousel::widget([
             'carouselId' => 'myCarousel',
             'items' => [
-                ['image' => ['src' => '/img/vector-ban2.jpg', 'alt' => ''], 'active' => true],
-                ['image' => ['src' => '/img/vector-ban3.jpg', 'alt' => ''], 'active' => false],
-                ['image' => ['src' => '/img/vector-ban4.jpg', 'alt' => ''], 'active' => false],
-                ['image' => ['src' => '/img/vector-ban5.jpg', 'alt' => ''], 'active' => false],
+                [
+                    'image' => ['src' => '/img/vector-ban2.jpg', 'alt' => ''],
+                    'headline' => [
+                        ['h1' => 'headline1'],
+                        ['p' => 'Note: If you\'re viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.'],
+                        ['p' => '<a class="btn btn-lg btn-info" href="#" role="button">Sign up today</a>']
+                    ],
+                    'active' => true]
+                ,
+                [
+                    'image' => ['src' => '/img/vector-ban3.jpg', 'alt' => ''],
+                    'headline' => [
+                        ['h1' => 'headline2'],
+                        ['p' => 'Note: If you\'re viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.'],
+                        ['p' => '<a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>']
+                    ],
+                    'active' => false
+                ],
+                [
+                    'image' => ['src' => '/img/vector-ban4.jpg', 'alt' => ''],
+                    'headline' => [
+                        ['h1' => 'headline3'],
+                        ['p' => 'Note: If you\'re viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.'],
+                        ['p' => '<a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>']
+                    ],
+                    'active' => false
+                ],
+                [
+                    'image' => ['src' => '/img/vector-ban5.jpg', 'alt' => ''],
+                    'headline' => [
+                        ['h1' => 'headline4'],
+                        ['p' => 'Note: If you\'re viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.'],
+                        ['p' => '<a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a>']
+                    ],
+                    'active' => false
+                ],
             ]
         ]);
 

@@ -4,7 +4,37 @@ namespace yii\widgets;
 use Yii;
 use yii\base\Widget;
 use yii\bootstrap\Html;
+use yii\helpers\ArrayHelper;
 
+/**
+ *
+ * [
+    'carouselId' => 'myCarousel',
+    'items' => [
+            [
+ *              'image' => [
+ *                  'src' => '/img/vector-ban2.jpg',
+ *                  'alt' => ''
+ *              ],
+ *              'headline' => [
+ *                  ['h1' => ''],
+ *                  ['p' => ''],
+ *                  ['p' => ''],
+ *              ],
+ *              'active' => true,
+ *          ],
+            ['image' => ['src' => '/img/vector-ban3.jpg', 'alt' => ''], 'active' => false],
+            ['image' => ['src' => '/img/vector-ban4.jpg', 'alt' => ''], 'active' => false],
+            ['image' => ['src' => '/img/vector-ban5.jpg', 'alt' => ''], 'active' => false],
+        ]
+    ]
+ *
+ *
+ *
+ *
+ * Class Carousel
+ * @package yii\widgets
+ */
 class Carousel extends Widget
 {
 
@@ -83,12 +113,19 @@ class Carousel extends Widget
      */
     protected function renderCarouselInner($item)
     {
-        $img =  Html::img($item['image']['src'], ['alt' => $item['image']['alt']]);
+        $img =  Html::img(ArrayHelper::getValue($item, 'image.src'), ['alt' => ArrayHelper::getValue($item, 'image.alt')]);
         $options = ['class' => 'item'];
         if (! empty($item['active'])) {
             Html::addCssClass($options, ['active']);
         }
-        $caption = Html::tag('div', '', ['class' => 'carousel-caption']);
+
+        $headline = '';
+        foreach (ArrayHelper::getValue($item, 'headline') as $key => $v) {
+            foreach ($v as $tag => $txt) {
+                $headline .= Html::tag($tag, $txt);
+            }
+        }
+        $caption = Html::tag('div', $headline, ['class' => 'carousel-caption']);
         $container = Html::tag('div', $caption, ['class' => 'container']);
 
         return Html::tag('div', $img . $container, $options);
