@@ -14,7 +14,8 @@ class AppAsset extends AssetBundle
         'js/fullcalendar/bootstrap-fullcalendar.css',
         'js/fullcalendar/fullcalendar.css',
         'js/fancybox/jquery.fancybox.css',
-        'css/style.css',
+        'css/calendar.css',
+//        'css/style.css',
         'css/style-responsive.css',
     ];
     public $js = [

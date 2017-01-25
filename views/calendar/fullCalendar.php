@@ -19,7 +19,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
     <!-- page end-->
-<!--    <a href="/img/1-1.jpg" class="fancybox" title="Sample title"><img src="/img/1-1.jpg" /></a>-->
 
 </div>
 <!--body wrapper end-->

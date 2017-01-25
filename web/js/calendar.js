@@ -8,6 +8,11 @@ var Script = function () {
     var m = date.getMonth();
     var y = date.getFullYear();
 
+
+    console.log(d);
+    console.log(m);
+    console.log(y);
+
     $('#calendar').fullCalendar({
         isRTL: false,
         firstDay: 0,
@@ -31,59 +36,15 @@ var Script = function () {
             right: 'month,basicWeek,basicDay'
         },
         editable: true,
-        events: [
-            {
-                title: 'All Day Event',
-                start: new Date(y, m, 1)
-            },
-            {
-                title: 'Long Event',
-                start: new Date(y, m, d-5),
-                end: new Date(y, m, d-2)
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d-3, 16, 0),
-                allDay: false
-            },
-            {
-                id: 999,
-                title: 'Repeating Event',
-                start: new Date(y, m, d+4, 16, 0),
-                allDay: false
-            },
-            {
-                title: 'Meeting',
-                start: new Date(y, m, d, 10, 30),
-                allDay: false
-            },
-            {
-                title: 'Lunch',
-                start: new Date(y, m, d, 12, 0),
-                end: new Date(y, m, d, 14, 0),
-                allDay: false
-            },
-            {
-                title: 'Birthday Party',
-                start: new Date(y, m, d+1, 19, 0),
-                end: new Date(y, m, d+1, 22, 30),
-                allDay: false
-            },
-            {
-                title: 'Click for Google',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                url: 'http://google.com/'
-            }
-        ],
+        events: '/ajax-calendar/events',
 
         dayClick: function(date, allDay, jsEvent, view) {
-            console.log('day click');
             console.log(date);
-            // console.log(allDay);
-            // console.log(jsEvent);
-            // console.log(view);
+            var selDate =$.fullCalendar.formatDate(date,'yyyy-MM-dd');
+            $.fancybox({
+                'type':'ajax',
+                'href':'/calendar/event?date='+selDate
+            });
         },
         eventClick: function(event, jsEvent, view) {
             console.log('event click');

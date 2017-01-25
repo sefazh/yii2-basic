@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Event;
 use app\models\EventSearch;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,17 @@ class CalendarController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['full-calendar'],
+                'rules' => [
+                    [
+                        'actions' => ['full-calendar'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -29,82 +41,21 @@ class CalendarController extends Controller
         ];
     }
 
-    /**
-     * Lists all Country models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new EventSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+    public function actionFullCalendar()
+    {
+        return $this->render('fullCalendar');
     }
 
-    /**
-     * Displays a single Country model.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionView($id)
+
+
+    public function actionEvent()
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $date = Yii::$app->request->get('date');
+
+        return $this->renderPartial('newEvent', ['date' => $date]);
     }
 
-    /**
-     * Creates a new Country model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Event();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing Country model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->code]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Deletes an existing Country model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the Country model based on its primary key value.
@@ -123,10 +74,6 @@ class CalendarController extends Controller
     }
 
 
-    public function actionFullCalendar()
-    {
-        return $this->render('fullCalendar');
-    }
 
 
 }
