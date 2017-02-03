@@ -1,11 +1,10 @@
-<!--<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">-->
 <div class="fancy">
     <h3>新建事件</h3>
-    <form id="add_form" action="do.php" method="post">
+    <form id="add_form" action="/ajax-calendar/create-event" method="post">
         <input type="hidden" name="action" value="add">
         <p>日程内容：<input type="text" class="input" name="event" id="event" style="width:320px" placeholder="记录你将要做的一件事..."></p>
         <p>开始时间：<input type="text" class="input datepicker" name="startdate" id="startdate" value="<?php echo $date;?>">
-            <span id="sel_start" style="display:none"><select name="s_hour">
+            <span id="sel_start"><select name="s_hour">
     	<option value="00">00</option>
         <option value="01">01</option>
         <option value="02">02</option>
@@ -42,7 +41,7 @@
     </span>
         </p>
         <p id="p_endtime" style="display:none">结束时间：<input type="text" class="input datepicker" name="enddate" id="enddate" value="<?php echo $date;?>">
-            <span id="sel_end" style="display:none"><select name="e_hour">
+            <span id="sel_end"><select name="e_hour">
     	<option value="00">00</option>
     	<option value="01">01</option>
         <option value="02">02</option>
@@ -85,53 +84,53 @@
         <div class="sub_btn"><span class="del"><input type="button" class="btn btn_del" id="del_event" value="删除"></span><input type="submit" class="btn btn_ok" value="确定"> <input type="button" class="btn btn_cancel" value="取消" onClick="$.fancybox.close()"></div>
     </form>
 </div>
-<!--<script type="text/javascript" src="js/jquery.form.min.js"></script>-->
-<!--<script type="text/javascript">-->
-<!--    $(function(){-->
-<!--        $(".datepicker").datepicker();-->
-<!--        $("#isallday").click(function(){-->
-<!--            if($("#sel_start").css("display")=="none"){-->
-<!--                $("#sel_start,#sel_end").show();-->
-<!--            }else{-->
-<!--                $("#sel_start,#sel_end").hide();-->
-<!--            }-->
-<!--        });-->
-<!---->
-<!--        $("#isend").click(function(){-->
-<!--            if($("#p_endtime").css("display")=="none"){-->
-<!--                $("#p_endtime").show();-->
-<!--            }else{-->
-<!--                $("#p_endtime").hide();-->
-<!--            }-->
-<!--            $.fancybox.resize();//调整高度自适应-->
-<!--        });-->
-<!---->
-<!--        //提交表单-->
-<!--        $('#add_form').ajaxForm({-->
-<!--            beforeSubmit: showRequest, //表单验证-->
-<!--            success: showResponse //成功返回-->
-<!--        });-->
-<!--    });-->
-<!---->
-<!--    function showRequest(){-->
-<!--        var events = $("#event").val();-->
-<!--        if(events==''){-->
-<!--            alert("请输入日程内容！");-->
-<!--            $("#event").focus();-->
-<!--            return false;-->
-<!--        }-->
-<!--    }-->
-<!---->
-<!--    function showResponse(responseText, statusText, xhr, $form){-->
-<!--        if(statusText=="success"){-->
-<!--            if(responseText==1){-->
-<!--                $.fancybox.close();-->
-<!--                $('#calendar').fullCalendar('refetchEvents'); //重新获取所有事件数据-->
-<!--            }else{-->
-<!--                alert(responseText);-->
-<!--            }-->
-<!--        }else{-->
-<!--            alert(statusText);-->
-<!--        }-->
-<!--    }-->
-<!--</script>-->
+<script type="text/javascript" src="/js/jquery.form.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".datepicker").datepicker();
+        $("#isallday").click(function(){
+            if($("#sel_start").css("display")=="none"){
+                $("#sel_start,#sel_end").show();
+            }else{
+                $("#sel_start,#sel_end").hide();
+            }
+        });
+
+        $("#isend").click(function(){
+            if($("#p_endtime").css("display")=="none"){
+                $("#p_endtime").show();
+            }else{
+                $("#p_endtime").hide();
+            }
+            $.fancybox.resize();//调整高度自适应
+        });
+
+        //提交表单
+        $('#add_form').ajaxForm({
+            beforeSubmit: showRequest, //表单验证
+            success: showResponse //成功返回
+        });
+    });
+
+    function showRequest(){
+        var events = $("#event").val();
+        if(events==''){
+            alert("请输入日程内容！");
+            $("#event").focus();
+            return false;
+        }
+    }
+
+    function showResponse(responseText, statusText, xhr, $form){
+        if(statusText=="success"){
+            if(responseText==1){
+                $.fancybox.close();
+                $('#calendar').fullCalendar('refetchEvents'); //重新获取所有事件数据
+            }else{
+                alert(responseText);
+            }
+        }else{
+            alert(statusText);
+        }
+    }
+</script>

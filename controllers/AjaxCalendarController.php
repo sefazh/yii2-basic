@@ -9,7 +9,9 @@
 namespace app\controllers;
 
 
+use app\models\Calendar;
 use Yii;
+use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 
@@ -34,16 +36,26 @@ class AjaxCalendarController extends AjaxController
     public function actionEvents()
     {
 
-        $json = [
-            ['title' => 'All Day Event', 'start' => '2017-01-01 00:00:00'],
-            [
-                'title' => 'Long Event',
-                'start' => '2017-01-20 00:00:00',
-                'end' => '2017-01-23 00:00:00',
-            ],
-        ];
+//        $json = [
+//            ['title' => 'All Day Event', 'start' => '2017-01-01 00:00:00'],
+//            [
+//                'title' => 'Long Event',
+//                'start' => '2017-01-20 00:00:00',
+//                'end' => '2017-01-23 00:00:00',
+//            ],
+//        ];
 
-        return $json;
+        $data = $this->getEventData();
+
+        foreach ($data as $key => $value) {
+            $data[$key]['start'] = $value['starttime'];
+            $data[$key]['end'] = $value['endtime'];
+
+            unset($data[$key]['starttime']);
+            unset($data[$key]['endtime']);
+        }
+
+        return $data;
     }
 
 
@@ -69,7 +81,75 @@ class AjaxCalendarController extends AjaxController
      */
     protected function getEventData()
     {
+        $rows = (new Query())
+            ->from('calendar')
+            ->where(['status' => 1])
+            ->all();
 
+        $data = $rows;
+
+        return $data;
     }
 
+
+
+    public function actionCreateEvent()
+    {
+        $fields = [
+            'action',
+            'e_hour',
+            'e_minute',
+            'enddate',
+            'event',
+            'isallday',
+            'isend',
+            's_hour',
+            's_minute',
+            'startdate',
+        ];
+
+
+        $isallday = $_POST['isallday'];//是否是全天事件
+        $isend = isset($_POST['isend']) ? $_POST['isend'] : 0;//是否有结束时间
+
+        $startdate = trim($_POST['startdate']);//开始日期
+        $enddate = trim($_POST['enddate']);//结束日期
+
+        $s_time = $_POST['s_hour'].':'.$_POST['s_minute'].':00';//开始时间
+        $e_time = $_POST['e_hour'].':'.$_POST['e_minute'].':00';//结束时间
+
+        if($isallday==1 && $isend==1){
+            $starttime = strtotime($startdate);
+            $endtime = strtotime($enddate);
+        }elseif($isallday==1 && $isend==""){
+            $starttime = strtotime($startdate);
+            $endtime = null;
+        }elseif($isallday=="" && $isend==1){
+            $starttime = strtotime($startdate.' '.$s_time);
+            $endtime = strtotime($enddate.' '.$e_time);
+        }else{
+            $starttime = strtotime($startdate.' '.$s_time);
+            $endtime = null;
+        }
+
+
+        $data = [
+            'title' => $_POST['event'],
+            'allday' => $isallday,
+            'starttime' => $starttime,
+            'endtime' => $endtime,
+            'url' => '',
+            'style' => '',
+            'status' => 1
+        ];
+
+
+        $model = new Calendar();
+
+        if ($model->load($data, '') && $model->save()) {
+            return 1;
+        } else {
+            return 'fail';
+        }
+    }
 }

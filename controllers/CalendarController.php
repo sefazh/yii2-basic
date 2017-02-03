@@ -74,6 +74,4 @@ class CalendarController extends Controller
     }
 
 
-
-
 }
