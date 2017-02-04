@@ -115,3 +115,56 @@
     padding-top: 10px;
     margin-top: 10px;
 }
+
+
+
+/*event label style*/
+.fc-event-skin.fc-event-type-0, .fc-event-skin.fc-event-type-0 .fc-event-skin {
+    background-color: #5d708c !important;
+    border-color: #5d708c !important;
+    color: #FFFFFF !important;
+}
+
+.fc-event-skin.fc-event-type-1, .fc-event-skin.fc-event-type-1 .fc-event-skin {
+    background-color: #7ac2ff !important;
+    border-color: #7ac2ff !important;
+    color: #FFFFFF !important;
+}
+
+.fc-event-skin.fc-event-type-2, .fc-event-skin.fc-event-type-2 .fc-event-skin {
+    background-color: #ff9800 !important;
+    border-color: #ff9800 !important;
+    color: #FFFFFF !important;
+}
+
+.fc-event-skin.fc-event-type-3, .fc-event-skin.fc-event-type-3 .fc-event-skin {
+    background-color: #ffe230 !important;
+    border-color: #ffe230 !important;
+    color: #333333 !important;
+}
+
+.fc-event-skin.fc-event-type-4, .fc-event-skin.fc-event-type-4 .fc-event-skin {
+   background-color: #65CEA7 !important;
+   border-color: #65CEA7 !important;
+   color: #FFFFFF !important;
+}
+
+.fc-event-skin.fc-event-type-5, .fc-event-skin.fc-event-type-5 .fc-event-skin {
+    background-color: #ff282a !important;
+    border-color: #ff282a !important;
+    color: #FFFFFF !important;
+}
+
+
+/*fancy*/
+.datetime-group { overflow: hidden}
+.datetime-group .datetimepicker { width: 50%; float: left}
+.datetime-group .timepicker { width: 50%; float: left; margin-top: 1px; padding-left: 10px;}
+.timepicker select { display: inline-block; width: 48%}
+label.error { color: red }
+
+.allday .datetime-group .datetimepicker { width: 100%}
+.allday .datetime-group .timepicker { display: none}
+
+.end-row { display: none}
+.isend .end-row { display: block}

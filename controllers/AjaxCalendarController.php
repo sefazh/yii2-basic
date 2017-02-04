@@ -48,9 +48,13 @@ class AjaxCalendarController extends AjaxController
         $data = $this->getEventData();
 
         foreach ($data as $key => $value) {
-            $data[$key]['start'] = $value['starttime'];
-            $data[$key]['end'] = $value['endtime'];
+            $data[$key]['allDay'] = (bool)$value['allday'];
+            $data[$key]['start'] = date('Y-m-d H:i:s', $value['starttime']);
+            $data[$key]['end'] = date('Y-m-d H:i:s', $value['endtime']);
 
+            $data[$key]['className'] = isset($value['style']) ? 'fc-event-type-'.$value['style'] : '';
+
+            unset($data[$key]['allday']);
             unset($data[$key]['starttime']);
             unset($data[$key]['endtime']);
         }
@@ -106,10 +110,11 @@ class AjaxCalendarController extends AjaxController
             's_hour',
             's_minute',
             'startdate',
+            'style',
         ];
 
 
-        $isallday = $_POST['isallday'];//是否是全天事件
+        $isallday = isset($_POST['isallday']) ? $_POST['isallday'] : 0;//是否是全天事件
         $isend = isset($_POST['isend']) ? $_POST['isend'] : 0;//是否有结束时间
 
         $startdate = trim($_POST['startdate']);//开始日期
@@ -132,6 +137,8 @@ class AjaxCalendarController extends AjaxController
             $endtime = null;
         }
 
+        $style = isset($_POST['style']) ? $_POST['style'] : '';
+
 
         $data = [
             'title' => $_POST['event'],
@@ -139,7 +146,7 @@ class AjaxCalendarController extends AjaxController
             'starttime' => $starttime,
             'endtime' => $endtime,
             'url' => '',
-            'style' => '',
+            'style' => $style,
             'status' => 1
         ];
 
