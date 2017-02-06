@@ -10,10 +10,8 @@ namespace app\controllers;
 
 
 use app\models\Calendar;
-use Yii;
 use yii\db\Query;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 
 class AjaxCalendarController extends AjaxController
 {
@@ -96,7 +94,11 @@ class AjaxCalendarController extends AjaxController
     }
 
 
-
+    /**
+     * 添加日历事件
+     *
+     * @return int|string
+     */
     public function actionCreateEvent()
     {
         $fields = [
