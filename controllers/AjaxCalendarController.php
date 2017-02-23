@@ -10,6 +10,7 @@ namespace app\controllers;
 
 
 use app\models\Calendar;
+use yii;
 use yii\db\Query;
 use yii\filters\VerbFilter;
 
@@ -33,22 +34,16 @@ class AjaxCalendarController extends AjaxController
 
     public function actionEvents()
     {
+        $get = Yii::$app->request->get();
 
-//        $json = [
-//            ['title' => 'All Day Event', 'start' => '2017-01-01 00:00:00'],
-//            [
-//                'title' => 'Long Event',
-//                'start' => '2017-01-20 00:00:00',
-//                'end' => '2017-01-23 00:00:00',
-//            ],
-//        ];
-
-        $data = $this->getEventData();
+        $data = $this->getEventData($get);
 
         foreach ($data as $key => $value) {
             $data[$key]['allDay'] = (bool)$value['allday'];
-            $data[$key]['start'] = date('Y-m-d H:i:s', $value['starttime']);
-            $data[$key]['end'] = date('Y-m-d H:i:s', $value['endtime']);
+//            $data[$key]['start'] = self::yearlyDateFormat($value['starttime']);
+//            $data[$key]['end'] = self::yearlyDateFormat($value['endtime']);
+            $data[$key]['start'] = $value['starttime'];
+            $data[$key]['end'] = $value['endtime'];
 
             $data[$key]['className'] = isset($value['style']) ? 'fc-event-type-'.$value['style'] : '';
 
@@ -56,6 +51,13 @@ class AjaxCalendarController extends AjaxController
             unset($data[$key]['starttime']);
             unset($data[$key]['endtime']);
         }
+
+        $json = [
+            ['id' => 999, 'title' => 'All Day Event', 'start' => '2017-02-01 00:00:00'],
+            ['id' => 999, 'title' => 'All Day Event', 'start' => '2017-01-01 00:00:00'],
+        ];
+
+        $data = array_merge($data, $json);
 
         return $data;
     }
@@ -80,17 +82,58 @@ class AjaxCalendarController extends AjaxController
         textColor	    可选      文本颜色。
      *
      *
+     * @param $get array
+     * @return array
      */
-    protected function getEventData()
+    protected function getEventData($get)
     {
-        $rows = (new Query())
+        $query = new Query();
+
+        $start = $get['start'];
+        $end = $get['end'];
+
+        $rows = $query
             ->from('calendar')
-            ->where(['status' => 1])
+            ->where(['or', ['and', "starttime >= {$start}", "starttime <= {$end}"], ['and', "endtime is not null", "endtime >= {$start}"]])
+            ->andWhere(['status'=>1])
             ->all();
 
+        //重复事件
+
+//        $repeat = $this->getRepeatData($start, $end);
+//
+//        $data = array_merge($rows, $repeat);
+
         $data = $rows;
+        return $data;
+    }
+
+
+
+    protected function getRepeatData($start, $end)
+    {
+        $start = date('m-d', $start);
+        $end = date('m-d', $end);
+
+        $data = (new Query())
+            ->from('yearly')
+            ->where(['or', ['and', "starttime >= '{$start}'", "starttime <= '{$end}'"], ['and', "endtime is not null", "endtime >= '{$start}'"]])
+            ->andWhere(['status' => 1])
+            ->all();
 
         return $data;
+    }
+
+
+    protected static function yearlyDateFormat($date)
+    {
+        if (is_numeric($date)) {
+            return date('Y-m-d H:i:s', $date);
+        } else {
+            $y = date('Y-');
+            return $y.$date;
+        }
+
     }
 
 
