@@ -9,6 +9,9 @@
 namespace app\controllers;
 
 
+use app\common\PhpExcel;
+use app\models\EventCalendar;
+use app\models\EventContent;
 use app\models\UploadFile;
 use Yii;
 use yii\base\Controller;
@@ -74,41 +77,36 @@ class ImportController extends Controller
 
     public function actionExcel()
     {
-
         $excelFile = '../uploads/calendar.xlsx';
-        $phpexcel=new \PHPExcel();
 
-//        if ($format == "xls") {
-//            $excelReader = \PHPExcel_IOFactory::createReader('Excel5');
-//        } else {
-//            $excelReader = \PHPExcel_IOFactory::createReader('Excel2007');
-//        }
+        $data = PhpExcel::read($excelFile);
+        array_shift($data);
 
-        $excelReader = \PHPExcel_IOFactory::createReader('Excel2007');
 
-        $phpexcel    = $excelReader->load($excelFile)->getSheet(0);//载入文件并获取第一个sheet
-        $total_line  = $phpexcel->getHighestRow();//总行数
-        $total_column= $phpexcel->getHighestColumn();//总列数
+        foreach ($data as $value) {
 
-        $result = array();
-        if($total_line > 1){
-            for($row = 1; $row <= $total_line; $row++){
-                $rowData = array();
-                for($column = 'A'; $column <= $total_column; $column++){
-                    $rowData[] = trim($phpexcel->getCell($column.$row)->getValue());
-                }
+            $contentModel = new EventContent();
+            $contentModel->title = $value[2];
+            
+            if ($contentModel->save()) {
 
-                $result[] = $rowData;
+                $date = explode('-', str_replace(['/', '月'], '-', $value[1]));
+
+                $calendarModel = new EventCalendar();
+                $calendarModel->event_id = $contentModel->id;
+                $calendarModel->month = $date[0];
+                $calendarModel->day = $date[1];
+                $calendarModel->during = 1;
+                $calendarModel->type = 'year';
+
+                $calendarModel->save();
             }
+
         }
 
+
         echo "<pre>";
-        var_dump($result);
-        die;
-//        if ($ok == 1){
-//            $this->redirect(array('index']);
-//        } else{
-//            echo "<script>alert('操作失败');window.history.back();</script>";
-//        }
+        var_dump($data);
+
     }
 }

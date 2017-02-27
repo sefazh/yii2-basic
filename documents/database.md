@@ -78,3 +78,37 @@ CREATE TABLE `calendar` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+
+
+#### 日历事件表 event_calendar
+
+```
+CREATE TABLE `event_calendar` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `event_id` int(10) unsigned DEFAULT NULL COMMENT '时间id',
+  `year` tinyint(4) DEFAULT NULL,
+  `month` tinyint(4) DEFAULT NULL,
+  `day` tinyint(4) DEFAULT NULL,
+  `during` smallint(6) DEFAULT NULL,
+  `type` enum('daily','weekly','monthly','yearly') DEFAULT NULL,
+  `weekday` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+
+
+#### 日历事件表 event_content
+
+```
+CREATE TABLE `event_content` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(30) DEFAULT NULL COMMENT '标题',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `style` tinyint(4) DEFAULT NULL COMMENT '样式编号',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
