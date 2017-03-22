@@ -2,8 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\grid\GridView;
 use app\models\UploadFile;
+
 /* @var $this yii\web\View */
+/* @var $list yii\data\ActiveDataProvider */
 
 $this->title = '导入';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,13 +26,29 @@ $model = new UploadFile();
 
     <?php ActiveForm::end() ?>
 
-    <!--<form action="/import/import" method="post" enctype="multipart/form-data">
-        <p>
-            <?/*= Html::fileInput('file', '', ['class' => 'btn btn-default']) */?>
-        </p>
-        <p>
-            <?/*= Html::submitButton('Submit', ['class' => 'btn btn-success']) */?>
-        </p>
-    </form>-->
+    <?php
+
+        if (!empty($list)) :
+
+            echo '<table class="table table-bordered">';
+
+            foreach ($list as $key => $val) {
+
+                echo '<tr>';
+
+                foreach ($val as $k => $v) {
+
+                    echo '<td>', $v, '</td>';
+
+                }
+
+                echo '</tr>';
+
+            }
+
+            echo '</table>';
+
+        endif;
+    ?>
 
 </div>

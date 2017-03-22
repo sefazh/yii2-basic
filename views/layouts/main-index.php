@@ -35,14 +35,14 @@ AppAsset::register($this);
     ]);
     $items = [
         ['label' => '首页', 'url' => ['site/index']],
-        ['label' => '关于', 'url' => ['site/about']],
-        ['label' => '联系', 'url' => ['site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $items[] = ['label' => '登录', 'url' => ['site/login']];
     } else {
-        $items[] = ['label' => '日历', 'url' => ['calendar/full-calendar']];
+//        $items[] = ['label' => '日历', 'url' => ['calendar/full-calendar']];
         $items[] = ['label' => '导入', 'url' => ['import/import']];
+        $items[] = ['label' => '列表', 'url' => ['import/list']];
+
         $items[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(

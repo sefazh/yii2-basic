@@ -8,14 +8,12 @@
 
 namespace app\commands;
 
-use app\common\Log;
 use app\common\Mail;
 use yii\base\Controller;
 use yii\helpers\ArrayHelper;
 
-class EventController extends Controller
+class BirthdayController extends Controller
 {
-
     public static function handle($event)
     {
         if (empty($event)) {
@@ -47,39 +45,6 @@ class EventController extends Controller
         $body = ArrayHelper::getValue($event, 'content');
 
         $result = Mail::send($to, $title, $body);
-
-        return $result;
-    }
-
-
-
-
-    /****************************************************************************/
-
-
-    /**
-     * 发送邮件
-     *
-     * @param $date
-     * @param $title
-     * @param $content
-     * @return bool
-     */
-    public static function mail($date, $title, $content)
-    {
-        $logfile = 'commands/cron.log';
-        Log::log('准备发送邮件通知邮件', [$date, $title, $content], $logfile);
-
-        $to = 'celinehe0708@163.com';
-        $title = '【邮件提醒】'.$date .' '. $title;
-        $body = $content;
-
-        $result = Mail::send($to, $title, $body);
-
-        Log::log(
-            $result ? '邮件发送成功' : '邮件发送失败',
-            $result ? [] : [$date, $title, $content],
-            $logfile);
 
         return $result;
     }

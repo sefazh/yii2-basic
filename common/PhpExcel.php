@@ -39,10 +39,5 @@ class PhpExcel
         }
 
         return $result;
-//        if ($ok == 1){
-//            $this->redirect(array('index']);
-//        } else{
-//            echo "<script>alert('操作失败');window.history.back();</script>";
-//        }
     }
 }
