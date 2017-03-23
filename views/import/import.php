@@ -22,6 +22,7 @@ $model = new UploadFile();
 
     <p>
         <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Get Template', ['template'], ['class' => 'btn btn-default', 'target' => '_blank']) ?>
     </p>
 
     <?php ActiveForm::end() ?>

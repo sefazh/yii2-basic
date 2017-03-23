@@ -96,7 +96,7 @@ class ImportController extends Controller
                     $list = $data;
                     array_shift($list);
 
-                    $this->saveEvent($list);
+                    $data = $this->saveEvent($list);
                 }
             }
         }
@@ -106,16 +106,31 @@ class ImportController extends Controller
 
 
     /**
+     * xlsx模板文件下载
+     */
+    public function actionTemplate()
+    {
+        $file = Yii::$app->basePath.'/uploads/calendar.xlsx';
+        Yii::$app->response->sendFile($file);
+    }
+
+
+    /**
      * 保存上传的事件
      * @param $list
-     * @return bool
+     * @return array
      * @throws Exception
      */
     private function saveEvent($list)
     {
 
         $preg = '/^[0-1][0-9]-[0-3][0-9]$/';
-        foreach ($list as $value) {
+        foreach ($list as $key => $value) {
+
+            if (empty($value[0]) || empty($value[1])) {
+                unset($list[$key]);
+                continue;
+            }
 
             if (!preg_match($preg, $value[1])) {
                 throw new Exception('日期格式不正确');
@@ -132,6 +147,6 @@ class ImportController extends Controller
             }
         }
 
-        return true;
+        return $list;
     }
 }

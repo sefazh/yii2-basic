@@ -42,7 +42,7 @@ class EventController extends Controller
      */
     protected static function dealMail($event)
     {
-        $to = 'celinehe0708@163.com';
+        $to = 'chongsh@163.com';
         $title = '【邮件提醒】'.$event['date'].$event['hour'].$event['minute'];
         $body = ArrayHelper::getValue($event, 'content');
 
@@ -70,7 +70,7 @@ class EventController extends Controller
         $logfile = 'commands/cron.log';
         Log::log('准备发送邮件通知邮件', [$date, $title, $content], $logfile);
 
-        $to = 'celinehe0708@163.com';
+        $to = 'chongsh@163.com';
         $title = '【邮件提醒】'.$date .' '. $title;
         $body = $content;
 
